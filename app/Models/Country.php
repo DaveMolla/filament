@@ -4,14 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Country extends Model
 {
     use HasFactory;
 
-    public function state(): BelongsTo
+
+    protected $fillable = [
+        'name',
+        'code',
+        'phonecode'
+    ];
+    public function states(): HasMany
     {
-        return $this->belongsTo(State::class);
+        return $this->hasMany(State::class);
+    }
+
+    /**
+     * Get all of the employees for the Country
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
     }
 }
